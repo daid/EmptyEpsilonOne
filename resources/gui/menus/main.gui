@@ -1,0 +1,88 @@
+[MAIN] {
+    stretch: true
+    type: image
+    image: gui/background_crosses.png
+    tile: 100, 100
+    
+    [LOGO] {
+        type: image
+        image: gui/logo.png
+        size: 1024, 256
+        position: 0, 160
+        alignment: top
+    }
+    
+    [VERSION] {
+        type: label
+        alignment: top
+        position: 0, 416
+        size: 0, 20
+        caption: Version: {version}
+    }
+    
+    [INSTANCE_NAME] {
+        type: label
+        alignment: topleft
+        size: 0, 20
+        text.alignment: left
+        position: 20, 20
+    }
+
+    {
+        layout: horizontal
+        alignment: bottomleft
+        margin: 50, 50
+
+        {
+            layout: vertical
+            alignment: bottom
+            margin: 0, 20, 0, 0
+            
+            {
+                type: label
+                size: 300, 50
+                caption: Your name:
+                text.alignment: left
+            }
+            [USERNAME] {
+                //TOFIX: textfield does not have a background at the moment.
+                type: textfield
+                size: 300, 50
+                margin: 0, 0, 0, 100
+            }
+
+            [SERVER] {
+                @ref: BUTTON
+                caption: Start server
+            }
+            [CLIENT] {
+                @ref: BUTTON
+                caption: Join game
+            }
+            [OPTIONS] {
+                @ref: BUTTON
+                caption: Options
+            }
+            [QUIT] {
+                @ref: BUTTON
+                caption: Quit
+            }
+        }
+
+        {
+            layout: vertical
+            alignment: bottom
+
+            [TUTORIAL] {
+                @ref: BUTTON
+                caption: Tutorials
+            }
+        }
+    }
+}
+
+[@BUTTON] {
+    type: button
+    size: 300, 50
+    margin: 0, 0, 10, 0
+}

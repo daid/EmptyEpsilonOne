@@ -1,0 +1,31 @@
+{
+    color: #FFFFFF
+    font: gui/theme/Oswald-Medium.ttf
+    size: 30
+    [label] {
+    }
+    [button] {
+        [button.background] {
+            image: gui/theme/button.background.png
+            image.hovered: gui/theme/button.background.hover.png
+        }
+        [button.forground] {
+            color.hovered: #808080
+        }
+    }
+    [panel] {
+    }
+    [progressbar] {
+    }
+    [progressbar.background] {
+    }
+    [image] {
+    }
+    [slider] {
+    }
+    [textarea] {
+    }
+    [textfield] {
+    }
+}
+
