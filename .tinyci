@@ -1,0 +1,11 @@
+[tinyci]
+enabled = True
+
+[build-native]
+directory = _build_native
+commands =
+    cmake ..
+    make -j 3
+
+[repos-daid/SeriousProton2]
+required = True
