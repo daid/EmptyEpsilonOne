@@ -42,6 +42,10 @@ void openMainMenu()
         showcase->getWidgetWithID("SLIDER")->setEventCallback([=](sp::Variant v2) mutable
         {
             showcase->getWidgetWithID("PROGRESSBAR")->setAttribute("value", sp::string(v2.getDouble()));
+            showcase->getWidgetWithID("PROGRESSBAR2")->setAttribute("value", sp::string(v2.getDouble()));
+            showcase->getWidgetWithID("PROGRESSBAR3")->setAttribute("value", sp::string(v2.getDouble()));
+            showcase->getWidgetWithID("PROGRESSBAR4")->setAttribute("value", sp::string(v2.getDouble()));
+            showcase->getWidgetWithID("PROGRESSBAR5")->setAttribute("value", sp::string(v2.getDouble()));
         });
         menu.destroy();
     });

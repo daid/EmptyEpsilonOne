@@ -30,6 +30,17 @@
     [PROGRESSBAR] {
         type: progressbar
         size: 300, 50
+        progress.alignment: left
+    }
+    [PROGRESSBAR2] {
+        type: progressbar
+        size: 300, 50
+        progress.alignment: right
+    }
+    [PROGRESSBAR3] {
+        type: progressbar
+        size: 300, 50
+        progress.alignment: center
     }
     [SLIDER] {
         type: slider
@@ -50,5 +61,18 @@
         type: tumbler
         size: 300, 150
         items: This, Is, A, Tumbler
+    }
+    {
+        layout: horizontal
+        [PROGRESSBAR4] {
+            type: progressbar
+            size: 50, 300
+            progress.alignment: bottom
+        }
+        [PROGRESSBAR5] {
+            type: progressbar
+            size: 50, 300
+            progress.alignment: top
+        }
     }
 }

@@ -39,8 +39,10 @@
     [textfield] {
     }
     [listbox] {
+        image: gui/theme/button.background.png
     }
     [tumbler] {
+        image: gui/theme/button.background.png
     }
 }
 
