@@ -1,0 +1,116 @@
+[MAIN] {
+    stretch: true
+    type: image
+    image: gui/background_crosses.png
+    tile: 100, 100
+
+    {
+        alignment: top
+        layout: horizontal
+        {
+            layout: vertical
+            {
+                type: label
+                alignment: top
+                size: 200, 50
+                caption: Select a ship:
+            }
+            {
+                layout: horizontal
+                {
+                    type: panel
+                    layout: vertical
+                    padding: 10
+                    {
+                        type: label
+                        caption: Ships
+                        size: 300, 50
+                    }
+                    [SHIPS] {
+                        type: listbox
+                        size: 300, 400
+                        items: Atlantis X23, Borlan, Borlan 2, Borlan Tree, MegaBorlan
+                    }
+                }
+                {
+                    type: panel
+                    layout: vertical
+                    padding: 10
+                    {
+                        type: label
+                        caption: Screen
+                        size: 300, 50
+                    }
+                    [SCREEN] {
+                        type: listbox
+                        size: 300, 400
+                        items: MainScreen, Helms, Weapons, Engineering, Science, Relay, Tactical, Engineering+, Operations
+                    }
+                }
+            }
+            {
+                type: panel
+                padding: 10
+                [DESCRIPTION] {
+                    type: textarea
+                    size: 620, 200
+                    text: Description of selected ship\
+                        Borlan.
+                    readonly: true
+                }
+            }
+        }
+
+        {
+            layout: vertical
+            margin: 50, 0, 0, 0
+            {
+                type: label
+                alignment: top
+                size: 200, 50
+                caption: Other options:
+            }
+            {
+                type: panel
+                padding: 10
+                layout: vertical
+                [GAMEMASTER] {
+                    type: button
+                    size: 300, 50
+                    caption: Game Master
+                    enabled: false
+                }
+                [OBSERVER] {
+                    type: button
+                    size: 300, 50
+                    caption: Observer
+                }
+                [CINEMATIC] {
+                    type: button
+                    size: 300, 50
+                    caption: Cinematic
+                }
+            }
+        }
+    }
+
+    {
+        alignment: bottom
+        layout: horizontal
+
+        [CLOSE] {
+            type: button
+            size: 300, 50
+            alignment: bottomleft
+            margin: 50, 50
+            caption: Exit
+        }
+
+        [JOIN] {
+            type: button
+            size: 300, 50
+            alignment: bottomright
+            margin: 50, 50
+            caption: Join
+        }
+}

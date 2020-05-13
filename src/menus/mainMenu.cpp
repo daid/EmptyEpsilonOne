@@ -1,4 +1,5 @@
 #include "mainMenu.h"
+#include "scenarioSelectionMenu.h"
 
 #include <sp2/graphics/gui/loader.h>
 #include <sp2/engine.h>
@@ -12,18 +13,18 @@ void openMainMenu()
     menu->getWidgetWithID("SERVER")->setEventCallback([=](sp::Variant v) mutable
     {
         //new GameServer();
-        //menu.destroy();
-        //openServerCreationScreen();
+        menu.destroy();
+        openScenarioSelectionMenu();
     });
     menu->getWidgetWithID("CLIENT")->setEventCallback([=](sp::Variant v) mutable
     {
         //new ServerBrowserMenu(ServerBrowserMenu::Local);
-        menu.destroy();
+        //menu.destroy();
     });
     menu->getWidgetWithID("OPTIONS")->setEventCallback([=](sp::Variant v) mutable
     {
         //new OptionsMenu();
-        menu.destroy();
+        //menu.destroy();
     });
     menu->getWidgetWithID("QUIT")->setEventCallback([=](sp::Variant v) mutable
     {
@@ -33,7 +34,7 @@ void openMainMenu()
     menu->getWidgetWithID("TUTORIAL")->setEventCallback([=](sp::Variant v) mutable
     {
         //new TutorialMenu();
-        menu.destroy();
+        //menu.destroy();
     });
 
     menu->getWidgetWithID("DEBUG_WIDGET_SHOWCASE")->setEventCallback([=](sp::Variant v) mutable

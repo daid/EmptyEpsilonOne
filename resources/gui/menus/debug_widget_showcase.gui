@@ -14,6 +14,11 @@
         caption: Button
     }
     {
+        type: togglebutton
+        size: 300, 50
+        caption: Button
+    }
+    {
         type: image
         size: 400, 100
         image: gui/logo.png

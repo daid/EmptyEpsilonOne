@@ -1,0 +1,95 @@
+[MAIN] {
+    stretch: true
+    type: image
+    image: gui/background_crosses.png
+    tile: 100, 100
+
+    {
+        alignment: top
+        layout: vertical
+        {
+            type: label
+            alignment: top
+            size: 200, 50
+            caption: Select a scenario:
+        }
+        {
+            layout: horizontal
+            {
+                type: panel
+                layout: vertical
+                padding: 10
+                {
+                    type: label
+                    caption: Category
+                    size: 300, 50
+                }
+                [CATEGORY] {
+                    type: listbox
+                    size: 300, 400
+                    items: Tutorial, Story, Hunt&Kill, Experimental
+                }
+            }
+            {
+                type: panel
+                layout: vertical
+                padding: 10
+                {
+                    type: label
+                    caption: Scenario
+                    size: 300, 50
+                }
+                [SCENARIO] {
+                    type: listbox
+                    size: 300, 400
+                    items: Basic, SimpleBasic, Bla, Bla2, Empty
+                }
+            }
+            {
+                type: panel
+                layout: vertical
+                padding: 10
+                {
+                    type: label
+                    caption: Variation
+                    size: 300, 50
+                }
+                [VARIATION] {
+                    type: listbox
+                    size: 300, 400
+                    items: Basic, SimpleBasic, Bla, Bla2, Empty
+                }
+            }
+        }
+        {
+            type: panel
+            padding: 10
+            [DESCRIPTION] {
+                type: textarea
+                size: 940, 200
+                text: Description of selected scenario
+                readonly: true
+            }
+        }
+    }
+
+    {
+        alignment: bottom
+        layout: horizontal
+
+        [CLOSE] {
+            type: button
+            size: 300, 50
+            alignment: bottomleft
+            margin: 50, 50
+            caption: Close server
+        }
+
+        [START] {
+            type: button
+            size: 300, 50
+            alignment: bottomright
+            margin: 50, 50
+            caption: Start
+        }
+}
