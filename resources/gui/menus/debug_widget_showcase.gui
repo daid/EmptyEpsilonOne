@@ -1,0 +1,54 @@
+[SHOWCASE] {
+    layout: verticalflow
+    stretch: true
+
+    {
+        type: label
+        size: 300, 50
+        caption: Label
+    }
+
+    {
+        type: button
+        size: 300, 50
+        caption: Button
+    }
+    {
+        type: image
+        size: 400, 100
+        image: gui/logo.png
+    }
+    {
+        type: listbox
+        size: 300, 300
+        items: List, Box, Items, In, A, Listbox, To, Show, A, List, Of, Items
+    }
+    {
+        type: panel
+        size: 300, 100
+    }
+    [PROGRESSBAR] {
+        type: progressbar
+        size: 300, 50
+    }
+    [SLIDER] {
+        type: slider
+        size: 300, 50
+    }
+    {
+        type: textarea
+        size: 300, 200
+        text: This is a textarea\
+            with multiple lines
+    }
+    {
+        type: textfield
+        size: 300, 50
+        text: This is a textfield
+    }
+    {
+        type: tumbler
+        size: 300, 150
+        items: This, Is, A, Tumbler
+    }
+}

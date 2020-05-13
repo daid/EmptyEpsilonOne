@@ -73,6 +73,12 @@
             layout: vertical
             alignment: bottom
 
+            [DEBUG_WIDGET_SHOWCASE] {
+                @ref: BUTTON
+                caption: Widgets showcase
+                visible: false
+            }
+
             [TUTORIAL] {
                 @ref: BUTTON
                 caption: Tutorials

@@ -36,6 +36,19 @@ void openMainMenu()
         menu.destroy();
     });
 
+    menu->getWidgetWithID("DEBUG_WIDGET_SHOWCASE")->setEventCallback([=](sp::Variant v) mutable
+    {
+        auto showcase = sp::gui::Loader::load("gui/menus/debug_widget_showcase.gui", "SHOWCASE", nullptr, true);
+        showcase->getWidgetWithID("SLIDER")->setEventCallback([=](sp::Variant v2) mutable
+        {
+            showcase->getWidgetWithID("PROGRESSBAR")->setAttribute("value", sp::string(v2.getDouble()));
+        });
+        menu.destroy();
+    });
+#ifdef DEBUG
+    menu->getWidgetWithID("DEBUG_WIDGET_SHOWCASE")->show();
+#endif
+
     //TODO: touchscreen calib
     //TODO: credits
     //TODO: instance name

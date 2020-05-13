@@ -14,18 +14,33 @@
         }
     }
     [panel] {
+        image: gui/theme/panel.background.png
     }
     [progressbar] {
-    }
-    [progressbar.background] {
+        [progressbar.background] {
+            image: gui/theme/progressbar.background.png
+        }
+        [progressbar.forground] {
+            image: gui/theme/progressbar.forground.png
+        }
     }
     [image] {
     }
     [slider] {
+        [slider.background] {
+            image: gui/theme/slider.background.png
+        }
+        [slider.forground] {
+            image: gui/theme/slider.forground.png
+        }
     }
     [textarea] {
     }
     [textfield] {
+    }
+    [listbox] {
+    }
+    [tumbler] {
     }
 }
 
