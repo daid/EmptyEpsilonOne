@@ -1,0 +1,96 @@
+[MAIN] {
+    stretch: true
+    type: image
+    image: gui/background_crosses.png
+    tile: 100, 100
+    
+    //TODO: "gui/BackgroundGradient" image
+    //TODO: alert underlay
+    
+    {
+        //type: radar
+        type: panel
+        alignment: center
+        size: 800, 800
+        //setRangeIndicatorStepSize(1000.0)->shortRange()->enableGhostDots()->enableWaypoints()->enableCallsigns()->enableHeadingIndicators()->setStyle(GuiRadarView::Circular);
+        //enableMissileTubeIndicators();
+    }
+    
+    {
+        layout: vertical
+        position: 20, 100
+        {
+            @ref: gui/components.gui#KEY_VALUE name=Energy
+        }
+        {
+            @ref: gui/components.gui#KEY_VALUE name=Heading
+        }
+        {
+            @ref: gui/components.gui#KEY_VALUE name=Speed
+        }
+    }    
+    
+    {
+        layout: horizontal
+        alignment: bottomleft
+        margin: 20, 100
+        
+        [IMPULSE] {
+            type: slider
+            size: 50, 300
+        }
+        {
+            type: label
+            size: 40, 300
+            caption: Impulse: 0%
+            vertical: true
+        }
+        [WARP] {
+            type: slider
+            size: 50, 300
+        }
+        {
+            type: label
+            size: 40, 300
+            caption: Warp: 0.0
+            vertical: true
+        }
+        {
+            layout: vertical
+            {
+                layout: horizontal
+                [JUMP_DISTANCE] {
+                    type: slider
+                    size: 50, 250
+                }
+                [JUMP_CHARGE] {
+                    type: progressbar
+                    progress.alignment: bottom
+                    size: 50, 250
+                }
+                {
+                    type: label
+                    size: 40, 250
+                    caption: Jump: 10.0U
+                    vertical: true
+                }
+            }
+            [JUMP] {
+                type: button
+                height: 50
+                fill_width: true
+                caption: Jump
+            }
+        }
+    }
+    
+    [DOCKING] {
+        type: button
+        size: 280, 50
+        alignment: bottomleft
+        margin: 20, 20
+        caption: Dock
+    }
+    
+    //TODO: Combat manouver
+}

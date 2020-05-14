@@ -1,0 +1,22 @@
+[@KEY_VALUE] {
+    type: panel
+    style: keyvalue.background
+    size: 240, 40
+    layout: horizontal
+    
+    {
+        type: label
+        size: 150, 40
+        style: keyvalue.key
+        text.alignment: right
+        caption: {name}
+    }
+    {
+        margin: 10, 0, 0, 0
+        type: label
+        style: keyvalue.value
+        text.alignment: left
+        caption: -
+        stretch: true
+    }
+}

@@ -1,5 +1,6 @@
 #include "mainMenu.h"
 #include "scenarioSelectionMenu.h"
+#include "../multiplayer.h"
 
 #include <sp2/graphics/gui/loader.h>
 #include <sp2/engine.h>
@@ -12,9 +13,11 @@ void openMainMenu()
     //menu->getWidgetWithID("USERNAME")
     menu->getWidgetWithID("SERVER")->setEventCallback([=](sp::Variant v) mutable
     {
-        //new GameServer();
-        menu.destroy();
-        openScenarioSelectionMenu();
+        if (startServer())
+        {
+            menu.destroy();
+            openScenarioSelectionMenu();
+        }
     });
     menu->getWidgetWithID("CLIENT")->setEventCallback([=](sp::Variant v) mutable
     {

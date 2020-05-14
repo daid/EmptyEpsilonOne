@@ -15,6 +15,8 @@
 #include <sp2/io/keybinding.h>
 
 #include "menus/mainMenu.h"
+#include "gameGlobalInfo.h"
+#include "spaceScene.h"
 
 sp::P<sp::Window> window;
 
@@ -43,6 +45,10 @@ int main(int argc, char** argv)
     scene_layer->addRenderPass(new sp::CollisionRenderPass());
 #endif
     window->addLayer(scene_layer);
+
+    //Create default scenes that always need to be there.
+    new GameGlobalInfo();
+    new SpaceScene();
 
     openMainMenu();
 

@@ -3,6 +3,9 @@
     font: gui/theme/Oswald-Medium.ttf
     size: 30
     [label] {
+        [keyvalue] {
+            size: 20
+        }
     }
     [button] {
         [button.background] {
@@ -22,6 +25,9 @@
     }
     [panel] {
         image: gui/theme/panel.background.png
+        [keyvalue.background] {
+            image: gui/theme/keyvalue.background.png
+        }
     }
     [progressbar] {
         [progressbar.background] {
