@@ -17,10 +17,11 @@
 #include "menus/mainMenu.h"
 #include "gameGlobalInfo.h"
 #include "spaceScene.h"
+#include "radarRenderPass.h"
 
 sp::P<sp::Window> window;
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
     sp::P<sp::Engine> engine = new sp::Engine();
 
@@ -31,7 +32,7 @@ int main(int argc, char** argv)
     sp::texture_manager.setDefaultSmoothFiltering(true);
 
     //Create a window to render on, and our engine.
-    window = new sp::Window(4.0/3.0);
+    window = new sp::Window(4.0 / 3.0);
 #if !defined(DEBUG) && !defined(EMSCRIPTEN)
     window->setFullScreen(true);
 #endif
@@ -44,6 +45,7 @@ int main(int argc, char** argv)
 #ifdef DEBUG
     scene_layer->addRenderPass(new sp::CollisionRenderPass());
 #endif
+    scene_layer->addRenderPass(new RadarRenderPass());
     window->addLayer(scene_layer);
 
     //Create default scenes that always need to be there.

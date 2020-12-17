@@ -8,12 +8,17 @@
     //TODO: alert underlay
     
     {
-        //type: radar
-        type: panel
+        type: radar
         alignment: center
         size: 800, 800
-        //setRangeIndicatorStepSize(1000.0)->shortRange()->enableGhostDots()->enableWaypoints()->enableCallsigns()->enableHeadingIndicators()->setStyle(GuiRadarView::Circular);
-        //enableMissileTubeIndicators();
+        
+        shape: circle
+        range: short
+        ghostdots: true
+        waypoints: true
+        callsigns: true
+        headingIndicators: true
+        tubeIndicators: true
     }
     
     {
