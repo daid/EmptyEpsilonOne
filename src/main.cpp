@@ -41,11 +41,10 @@ int main(int argc, char **argv)
     new sp::gui::Scene(sp::Vector2d(1200, 900));
 
     sp::P<sp::SceneGraphicsLayer> scene_layer = new sp::SceneGraphicsLayer(1);
-    scene_layer->addRenderPass(new sp::BasicNodeRenderPass());
+    scene_layer->addRenderPass(new RadarRenderPass());
 #ifdef DEBUG
     scene_layer->addRenderPass(new sp::CollisionRenderPass());
 #endif
-    scene_layer->addRenderPass(new RadarRenderPass());
     window->addLayer(scene_layer);
 
     //Create default scenes that always need to be there.

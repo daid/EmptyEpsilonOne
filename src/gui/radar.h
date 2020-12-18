@@ -9,6 +9,10 @@ public:
 
     virtual void setAttribute(const sp::string &key, const sp::string &value) override;
 
+    virtual bool onPointerDown(sp::io::Pointer::Button button, sp::Vector2d position, int id) override;
+    virtual void onPointerDrag(sp::Vector2d position, int id) override;
+    virtual void onPointerUp(sp::Vector2d position, int id) override;
+
     virtual void updateRenderData() override;
 
     virtual void onUpdate(float delta) override;

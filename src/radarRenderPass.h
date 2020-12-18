@@ -1,9 +1,9 @@
 #pragma once
 
-#include <sp2/graphics/scene/renderpass.h>
+#include <sp2/graphics/scene/basicnoderenderpass.h>
 
-class RadarRenderPass : public sp::RenderPass
+class RadarRenderPass : public sp::BasicNodeRenderPass
 {
 public:
-    void render(sp::RenderQueue &queue) override;
+    void addNodeToRenderQueue(sp::RenderQueue& queue, sp::P<sp::Node>& node) override;
 };

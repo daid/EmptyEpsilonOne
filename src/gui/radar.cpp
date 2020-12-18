@@ -2,7 +2,9 @@
 #include <sp2/graphics/shader.h>
 #include <sp2/graphics/meshdata.h>
 #include <sp2/graphics/textureManager.h>
+
 #include "radar.h"
+
 
 SP_REGISTER_WIDGET("radar", RadarWidget);
 
@@ -63,32 +65,40 @@ void RadarWidget::setAttribute(const sp::string &key, const sp::string &value)
     }
 }
 
-void RadarWidget::updateRenderData()
+bool RadarWidget::onPointerDown(sp::io::Pointer::Button button, sp::Vector2d position, int id)
 {
     if (shape == Shape::Circle)
     {
-        render_data.texture = sp::texture_manager.get("gui/radar/circle_overlay.png");
-        render_data.shader = sp::Shader::get("internal:basic.shader");
-
-        sp::MeshData::Vertices vertices;
-        sp::MeshData::Indices indices{0, 1, 2, 2, 1, 3};
-        vertices.reserve(4);
-
-        auto render_size = getRenderSize();
-        vertices.emplace_back(sp::Vector3f(0, 0, 0), sp::Vector2f(0, 1));
-        vertices.emplace_back(sp::Vector3f(render_size.x, 0, 0), sp::Vector2f(1, 1));
-        vertices.emplace_back(sp::Vector3f(0, render_size.y, 0), sp::Vector2f(0, 0));
-        vertices.emplace_back(sp::Vector3f(render_size.x, render_size.y, 0), sp::Vector2f(1, 0));
-
-        render_data.mesh = sp::MeshData::create(std::move(vertices), std::move(indices));
+        auto size = getRenderSize();
+        auto radius = std::min(size.x, size.y) * 0.5;
+        if ((position - size * 0.5).length() > radius)
+            return false;
     }
+    return true;
+}
+
+void RadarWidget::onPointerDrag(sp::Vector2d position, int id)
+{
+}
+
+void RadarWidget::onPointerUp(sp::Vector2d position, int id)
+{
+}
+
+void RadarWidget::updateRenderData()
+{
+    //render_data.texture = sp::texture_manager.get("gui/radar/circle_overlay.png");
+    render_data.shader = sp::Shader::get("internal:color.shader");
+
+    if (shape == Shape::Circle)
+        render_data.mesh = sp::MeshData::createCircle(std::min(getRenderSize().x, getRenderSize().y) * 0.5, 64, false);
     else
-    {
-        render_data.shader = nullptr;
-    }
+        render_data.mesh = sp::MeshData::createQuad(sp::Vector2f(getRenderSize()));
 }
 
 void RadarWidget::onUpdate(float delta)
 {
     sp::gui::Widget::onUpdate(delta);
+    if (render_data.type == sp::RenderData::Type::Normal)
+        render_data.type = sp::RenderData::Type::Custom1;
 }
