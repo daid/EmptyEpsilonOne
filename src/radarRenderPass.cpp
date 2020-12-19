@@ -3,7 +3,11 @@
 #include <sp2/scene/camera.h>
 #include <sp2/scene/scene.h>
 #include <sp2/graphics/opengl.h>
+#include <sp2/graphics/meshdata.h>
+#include <sp2/graphics/textureManager.h>
 #include "gui/radar.h"
+#include "spaceObject/spaceObject.h"
+
 
 void RadarRenderPass::addNodeToRenderQueue(sp::RenderQueue& queue, sp::P<sp::Node>& node)
 {
@@ -25,19 +29,27 @@ void RadarRenderPass::addNodeToRenderQueue(sp::RenderQueue& queue, sp::P<sp::Nod
         sp::RenderData data;
         data = node->render_data;
         data.type = sp::RenderData::Type::Normal;
-        data.color = sp::Color(0,0,0);
+        data.color = sp::Color(0.1, 0.1, 0.1);
         queue.add(sp::Matrix4x4f::identity(), data);
 
-        float scale = std::min(radar_widget->getRenderSize().x, radar_widget->getRenderSize().y) * 0.5;
-        queue.setCamera(node->getScene()->getCamera()->getProjectionMatrix(), sp::Matrix4x4f::scale(scale,scale,1) * sp::Matrix4x4f::fromQuaternion(sp::Quaternionf::fromAngle(-135)));
+        float scale = 5000 / std::min(radar_widget->getRenderSize().x, radar_widget->getRenderSize().y);
+        queue.setCamera(node->getScene()->getCamera()->getProjectionMatrix(), sp::Matrix4x4f::scale(1.0/scale, 1.0/scale, 1));
         
         //Render the radar items
         queue.add([](){
             glStencilFunc(GL_EQUAL, 1, 0xff);
             glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
         });
-        data.color = sp::Color(1, 0, 0);
-        queue.add(sp::Matrix4x4f::translate(1, 0, 0) * sp::Matrix4x4f::scale(1.0/scale, 1.0/scale, 1), data);
+
+        queue.setCamera(node->getScene()->getCamera()->getProjectionMatrix(), sp::Matrix4x4f::scale(1.0/scale,1.0/scale,1) * sp::Matrix4x4f::fromQuaternion(sp::Quaternionf::fromAngle(45)));
+        //TODO: Render radar background
+
+        auto scene = sp::Scene::get("SCENE_1");
+        for(auto node : scene->getRoot()->getChildren())
+        {
+            sp::P<SpaceObject> obj = node;
+            obj->renderOnRadar(queue);
+        }
 
         queue.add([](){
             glDisable(GL_STENCIL_TEST);

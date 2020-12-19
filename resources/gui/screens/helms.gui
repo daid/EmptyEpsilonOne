@@ -20,6 +20,8 @@
         callsigns: true
         headingIndicators: true
         tubeIndicators: true
+
+        //TODO: Image overlay for radar border.
     }
     
     {

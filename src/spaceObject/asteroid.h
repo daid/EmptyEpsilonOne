@@ -1,7 +1,9 @@
 #pragma once
 
-#include <sp2/scene/node.h>
+#include "spaceObject.h"
 
-class Asteroid : public sp::Node
+class Asteroid : public SpaceObject
 {
+public:
+    Asteroid(sp::P<sp::Node> parent);
 };

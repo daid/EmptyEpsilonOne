@@ -5,5 +5,5 @@
 class SpaceScene : public sp::Scene
 {
 public:
-    SpaceScene();
+    SpaceScene(const sp::string& name);
 };

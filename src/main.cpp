@@ -49,7 +49,6 @@ int main(int argc, char **argv)
 
     //Create default scenes that always need to be there.
     new GameGlobalInfo();
-    new SpaceScene();
 
     openMainMenu();
 
