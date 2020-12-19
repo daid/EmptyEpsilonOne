@@ -41,7 +41,7 @@ void RadarRenderPass::addNodeToRenderQueue(sp::RenderQueue& queue, sp::P<sp::Nod
             glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
         });
 
-        queue.setCamera(node->getScene()->getCamera()->getProjectionMatrix(), sp::Matrix4x4f::scale(1.0/scale,1.0/scale,1) * sp::Matrix4x4f::fromQuaternion(sp::Quaternionf::fromAngle(45)));
+        queue.setCamera(node->getScene()->getCamera()->getProjectionMatrix(), sp::Matrix4x4f::scale(1.0/scale,1.0/scale,1) * sp::Matrix4x4f::fromQuaternion(sp::Quaternionf::fromAngle(0)));
         //TODO: Render radar background
 
         auto scene = sp::Scene::get("SCENE_1");

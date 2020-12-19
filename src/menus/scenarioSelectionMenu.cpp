@@ -8,6 +8,7 @@
 //TMP, hard coded scenario creation
 #include "../spaceScene.h"
 #include "../spaceObject/asteroid.h"
+#include "../spaceObject/playerCraft.h"
 
 void openScenarioSelectionMenu()
 {
@@ -29,6 +30,8 @@ void openScenarioSelectionMenu()
             a = new Asteroid(scene->getRoot());
             a->setPosition(sp::Vector2d(n, 0));
         }
+        auto player = new PlayerCraft(scene->getRoot());
+        player->setPosition(sp::Vector2d(100, 100));
 
         menu.destroy();
         openShipSelectionMenu();

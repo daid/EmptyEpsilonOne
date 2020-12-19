@@ -13,7 +13,7 @@ varying vec2 v_uv;
 void main()
 {
     vec4 pos = camera_matrix * object_matrix * vec4(0.0, 0.0, 0.0, 1.0);
-    pos.xy += a_vertex.xy;
+    pos += object_matrix * vec4(a_vertex, 0.0);
     gl_Position = projection_matrix * pos;
     v_uv = a_uv.xy;
 }

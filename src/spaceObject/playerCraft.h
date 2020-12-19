@@ -1,7 +1,9 @@
 #pragma once
 
-#include "ship.h"
+#include "craft.h"
 
-class PlayerShip : public Ship
+class PlayerCraft : public Craft
 {
+public:
+    PlayerCraft(sp::P<sp::Node> parent);
 };
