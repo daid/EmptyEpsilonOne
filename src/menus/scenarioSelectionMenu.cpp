@@ -38,7 +38,6 @@ void openScenarioSelectionMenu()
             if (s.resource_name == scenario->getItemData(scenario->getSelectedIndex()))
             {
                 auto desc = "Author: " + s.author + "\n" + s.description;
-                LOG(Debug, s.variations[variation->getSelectedIndex()].first, s.variations[variation->getSelectedIndex()].second);
                 if (!s.variations.empty())
                     desc += "\n" + s.variations[variation->getSelectedIndex()].second;
                 description->setAttribute("text", desc);
