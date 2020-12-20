@@ -27,7 +27,6 @@
                 [CATEGORY] {
                     type: listbox
                     size: 300, 400
-                    items: Tutorial, Story, Hunt&Kill, Experimental
                 }
             }
             {
@@ -42,7 +41,6 @@
                 [SCENARIO] {
                     type: listbox
                     size: 300, 400
-                    items: Basic, SimpleBasic, Bla, Bla2, Empty
                 }
             }
             {
@@ -57,7 +55,6 @@
                 [VARIATION] {
                     type: listbox
                     size: 300, 400
-                    items: Basic, SimpleBasic, Bla, Bla2, Empty
                 }
             }
         }
@@ -92,4 +89,5 @@
             margin: 50, 50
             caption: Start
         }
+    }
 }
