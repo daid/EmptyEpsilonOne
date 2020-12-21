@@ -12,7 +12,7 @@ public:
     sp::string author;
     sp::string category;
     sp::string description;
-    uint64_t required_version{0};
+    int required_version{0};
     std::vector<std::pair<sp::string, sp::string>> variations;
 
     static std::vector<ScenarioInfo> getAll();

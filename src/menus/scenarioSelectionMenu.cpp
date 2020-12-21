@@ -1,13 +1,13 @@
 #include "scenarioSelectionMenu.h"
 #include "mainMenu.h"
 #include "shipSelectionMenu.h"
+#include "../version.h"
 #include "../multiplayer.h"
 #include "../scenarioInfo.h"
+#include "../scenario.h"
 
 #include <sp2/graphics/gui/loader.h>
 #include <sp2/graphics/gui/widget/itemlist.h>
-
-#include "../scenario.h"
 
 void openScenarioSelectionMenu()
 {
@@ -29,11 +29,15 @@ void openScenarioSelectionMenu()
 
     auto update_description = [=](sp::Variant v) mutable {
         description->setAttribute("text", "");
+
         for (const auto &s : *scenarios)
         {
             if (s.resource_name == scenario->getItemData(scenario->getSelectedIndex()))
             {
                 auto desc = "Author: " + s.author + "\n" + s.description;
+                menu->getWidgetWithID("START")->setEnable(s.required_version <= empty_epsilon_version);
+                if (s.required_version > empty_epsilon_version)
+                    desc = "Requires EE version: " + sp::string(s.required_version) + "\n" + desc;
                 if (!s.variations.empty())
                     desc += "\n" + s.variations[variation->getSelectedIndex()].second;
                 description->setAttribute("text", desc);
