@@ -19,7 +19,7 @@
 #include "spaceScene.h"
 #include "radarRenderPass.h"
 
-int empty_epsilon_version = 0;
+int empty_epsilon_version = 1;
 
 sp::P<sp::Window> window;
 
