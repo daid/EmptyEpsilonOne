@@ -1,6 +1,7 @@
 #include "mainMenu.h"
 #include "scenarioSelectionMenu.h"
 #include "../multiplayer.h"
+#include "../version.h"
 
 #include <sp2/graphics/gui/loader.h>
 #include <sp2/engine.h>
@@ -9,6 +10,7 @@
 void openMainMenu()
 {
     auto menu = sp::gui::Loader::load("gui/menus/main.gui", "MAIN");
+    menu->getWidgetWithID("VERSION")->setAttribute("label", "Version: " + sp::string(empty_epsilon_version));
     //TODO: Update username from the textfield
     //menu->getWidgetWithID("USERNAME")
     menu->getWidgetWithID("SERVER")->setEventCallback([=](sp::Variant v) mutable
