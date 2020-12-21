@@ -1,5 +1,6 @@
 --- @name: Test
 --  @author: Daid
+--  @minimal version: 1
 --  @category: Experimental
 --  @description: Description of the scenario
 --   		      with multiline support.
@@ -8,5 +9,9 @@
 --              Faster version of the scenario.
 
 function init()
-	print("init")
+	for x=-1000,1000,100 do
+		for y=-1000,1000,100 do
+			a = Asteroid({x, y})
+		end
+	end
 end

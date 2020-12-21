@@ -1,5 +1,6 @@
 --- @name: Test2
 --  @author: Daid2
+--  @minimal version: 1
 --  @category: Experimental
 --  @description: Description of the scenario
 --   		      with multiline support.

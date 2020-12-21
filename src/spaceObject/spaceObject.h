@@ -8,8 +8,10 @@ class SpaceObject : public sp::Node
 public:
     SpaceObject(sp::P<sp::Node> parent);
 
-    virtual void renderOnRadar(sp::RenderQueue& queue);
+    virtual void renderOnRadar(sp::RenderQueue &queue);
 
 protected:
+    void onRegisterScriptBindings(sp::script::BindingClass &script_binding_class) override;
+
     sp::RenderData radar_blip;
 };
