@@ -17,6 +17,13 @@ static sp::P<Asteroid> luaNewAsteroid(sp::Vector2d position)
     return result;
 }
 
+static sp::P<PlayerCraft> luaNewPlayerCraft(sp::Vector2d position)
+{
+    auto result = new PlayerCraft(scenario_main_scene->getRoot());
+    result->setPosition(position);
+    return result;
+}
+
 void startScenario(const sp::string &resource_name)
 {
     scenario_main_scene.destroy();
@@ -30,10 +37,8 @@ void startScenario(const sp::string &resource_name)
     scenario_script_environment->setGlobal("chance", sp::chance);
 
     scenario_script_environment->setGlobal("Asteroid", luaNewAsteroid);
+    scenario_script_environment->setGlobal("PlayerCraft", luaNewPlayerCraft);
 
-    scenario_script_environment->load(sp::io::ResourceProvider::get(resource_name));
+    scenario_script_environment->load(resource_name);
     scenario_script_environment->call("init");
-
-    auto player = new PlayerCraft(scenario_main_scene->getRoot());
-    player->setPosition(sp::Vector2d(100, 100));
 }

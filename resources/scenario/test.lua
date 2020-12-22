@@ -14,4 +14,6 @@ function init()
 			a = Asteroid({x, y})
 		end
 	end
+	PlayerCraft({50, 50})
+	PlayerCraft({2050, 50})
 end

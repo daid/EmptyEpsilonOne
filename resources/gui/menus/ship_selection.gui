@@ -44,7 +44,6 @@
                     [SCREEN] {
                         type: listbox
                         size: 300, 400
-                        items: MainScreen, Helms, Weapons, Engineering, Science, Relay, Tactical, Engineering+, Operations
                     }
                 }
             }
