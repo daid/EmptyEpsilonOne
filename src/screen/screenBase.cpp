@@ -117,6 +117,8 @@ void ScreenBase::link(sp::P<sp::gui::Widget> widget)
         return;
     if (widget->tag == "impulse.current" && sp::P<sp::gui::Label>(widget))
         new LabelValueDisplay(widget, player, [](sp::P<PlayerCraft> player) { return sp::string(int(player->impulse.current * 100)) + "%"; });
+    else if (widget->tag == "warp.current" && sp::P<sp::gui::Label>(widget))
+        new LabelValueDisplay(widget, player, [](sp::P<PlayerCraft> player) { return sp::string(player->warpdrive.current, 1); });
     else
         LOG(Debug, "Unknown screen widget tag:", widget->tag);
 }
