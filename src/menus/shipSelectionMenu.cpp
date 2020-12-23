@@ -2,9 +2,11 @@
 #include "scenarioSelectionMenu.h"
 #include "mainMenu.h"
 #include "../multiplayer.h"
+#include "../screen/screenBase.h"
 #include "../spaceObject/playerCraft.h"
 
 #include <sp2/graphics/gui/loader.h>
+#include <sp2/graphics/gui/scene.h>
 #include <sp2/graphics/gui/widget/itemlist.h>
 
 
@@ -63,8 +65,8 @@ void openShipSelectionMenu()
         if (!selected_craft)
             return;
         auto screen_file = screen_list->getItemData(screen_list->getSelectedIndex());
-
-        sp::gui::Loader::load(screen_file, "MAIN");
+        sp::P<sp::gui::Scene> scene = menu->getScene();
+        new ScreenBase(scene->getRootWidget(), selected_craft, screen_file);
         menu.destroy();
     });
     new PlayerCraftListUpdater(menu->getWidgetWithID("SHIPS"));
