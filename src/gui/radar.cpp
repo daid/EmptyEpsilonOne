@@ -74,6 +74,7 @@ bool RadarWidget::onPointerDown(sp::io::Pointer::Button button, sp::Vector2d pos
         if ((position - size * 0.5).length() > radius)
             return false;
     }
+    //LOG(Debug, widgetPositionToWorld(position));
     return true;
 }
 
@@ -112,4 +113,10 @@ void RadarWidget::onUpdate(float delta)
         case RangeType::Long: range = owner_craft->sensors.long_range; break;
         }
     }
+}
+
+sp::Vector2d RadarWidget::widgetPositionToWorld(sp::Vector2d position)
+{
+    position -= getRenderSize() * 0.5;
+    return view_position + position / (std::min(getRenderSize().x, getRenderSize().y) * 0.5) * range;
 }

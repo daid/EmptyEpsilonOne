@@ -20,7 +20,10 @@ public:
 
     void setOwnerCraft(sp::P<Craft> owner) { owner_craft = owner; }
     sp::Vector2d getViewTargetPosition() { return view_position; }
+    double getRange() { return range; }
 private:
+    sp::Vector2d widgetPositionToWorld(sp::Vector2d position);
+
     enum class Shape
     {
         Circle,
@@ -32,7 +35,7 @@ private:
         Short,
         Long,
     } range_type = RangeType::Short;
-    float range = 5000.0;
+    double range = 5000.0;
     bool ghostdots = false;
     bool waypoints = false;
     bool callsigns = false;

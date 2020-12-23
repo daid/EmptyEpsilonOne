@@ -32,7 +32,7 @@ void RadarRenderPass::addNodeToRenderQueue(sp::RenderQueue& queue, sp::P<sp::Nod
         data.color = sp::Color(0.1, 0.1, 0.1);
         queue.add(sp::Matrix4x4f::identity(), data);
 
-        float scale = 5000 / std::min(radar_widget->getRenderSize().x, radar_widget->getRenderSize().y);
+        float scale = radar_widget->getRange() / (std::min(radar_widget->getRenderSize().x, radar_widget->getRenderSize().y) * 0.5);
         queue.setCamera(node->getScene()->getCamera()->getProjectionMatrix(), sp::Matrix4x4f::scale(1.0/scale, 1.0/scale, 1));
         
         //Render the radar items
