@@ -13,6 +13,7 @@ PlayerCraft::PlayerCraft(sp::P<sp::Node> parent)
 
     multiplayer.replicate(&PlayerCraft::serverSetManeuverTarget);
     multiplayer.replicate(&PlayerCraft::serverSetImpulseRequest);
+    multiplayer.replicate(&PlayerCraft::serverSetWarpRequest);
 }
 
 void PlayerCraft::commandSetManeuverTarget(double target)
@@ -29,6 +30,13 @@ void PlayerCraft::commandSetImpulseRequest(double amount)
     multiplayer.callOnServer(&PlayerCraft::serverSetImpulseRequest, amount);
 }
 
+void PlayerCraft::commandSetWarpRequest(int level)
+{
+    level = std::clamp(level, 0, warpdrive.config.max_level);
+    warpdrive.request = level;
+    multiplayer.callOnServer(&PlayerCraft::serverSetWarpRequest, level);
+}
+
 void PlayerCraft::serverSetManeuverTarget(double target)
 {
     maneuvering.target = target;
@@ -39,4 +47,10 @@ void PlayerCraft::serverSetImpulseRequest(double amount)
 {
     amount = std::clamp(amount, -1.0, 1.0);
     impulse.request = amount;
+}
+
+void PlayerCraft::serverSetWarpRequest(int level)
+{
+    level = std::clamp(level, 0, warpdrive.config.max_level);
+    warpdrive.request = level;
 }

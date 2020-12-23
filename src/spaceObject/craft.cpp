@@ -23,6 +23,16 @@ Craft::Craft(sp::P<sp::Node> parent)
     multiplayer.replicate(impulse.config.top_speed);
     multiplayer.replicate(impulse.config.acceleration);
 
+    multiplayer.replicate(warpdrive.request);
+    multiplayer.replicate(warpdrive.current, 0.1);
+    multiplayer.replicate(warpdrive.config.max_level);
+    multiplayer.replicate(warpdrive.config.speed_per_level);
+    multiplayer.replicate(warpdrive.config.charge_time);
+    multiplayer.replicate(warpdrive.config.discharge_time);
+
+    multiplayer.replicate(sensors.short_range);
+    multiplayer.replicate(sensors.long_range);
+
     sp::collision::Circle2D shape(50.0);
     shape.type = sp::collision::Shape::Type::Dynamic;
     setCollisionShape(shape);
@@ -30,12 +40,29 @@ Craft::Craft(sp::P<sp::Node> parent)
 
 void Craft::onUpdate(float delta)
 {
-    if (impulse.current < impulse.request)
-        impulse.current = std::min(impulse.request, impulse.current + delta * (impulse.config.acceleration / impulse.config.top_speed));
-    else if (impulse.current > impulse.request)
-        impulse.current = std::max(impulse.request, impulse.current - delta * (impulse.config.acceleration / impulse.config.top_speed));
+    if (warpdrive.request > 0 || warpdrive.current > 0.0)
+    {
+        if (impulse.current > 0.0)
+            impulse.current = std::max(0.0, impulse.current - delta * (impulse.config.acceleration / impulse.config.top_speed));
+        else if (impulse.current < 0.0)
+            impulse.current = std::min(0.0, impulse.current + delta * (impulse.config.acceleration / impulse.config.top_speed));
+        else if (warpdrive.current < warpdrive.request)
+            warpdrive.current = std::min(double(warpdrive.request), warpdrive.current + delta / warpdrive.config.charge_time);
+        else
+            warpdrive.current = std::max(double(warpdrive.request), warpdrive.current - delta / warpdrive.config.discharge_time);
+    }
+    else
+    {
+        if (impulse.current < impulse.request)
+            impulse.current = std::min(impulse.request, impulse.current + delta * (impulse.config.acceleration / impulse.config.top_speed));
+        else if (impulse.current > impulse.request)
+            impulse.current = std::max(impulse.request, impulse.current - delta * (impulse.config.acceleration / impulse.config.top_speed));
+    }
 
-    setLinearVelocity(sp::Vector2d(0.0, 1.0).rotate(getRotation2D()) * impulse.current * impulse.config.top_speed);
+    double impulse_speed = impulse.current * impulse.config.top_speed;
+    double warp_speed = warpdrive.current * warpdrive.config.speed_per_level;
+    setLinearVelocity(sp::Vector2d(0.0, 1.0).rotate(getRotation2D()) * (impulse_speed + warp_speed));
+
     if (std::abs(maneuvering.request) >= 0.005)
     {
         maneuvering.target = getRotation2D();

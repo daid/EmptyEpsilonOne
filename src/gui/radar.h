@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../spaceObject/craft.h"
 #include <sp2/graphics/gui/widget/widget.h>
 
 class RadarWidget : public sp::gui::Widget
@@ -17,6 +18,8 @@ public:
 
     virtual void onUpdate(float delta) override;
 
+    void setOwnerCraft(sp::P<Craft> owner) { owner_craft = owner; }
+    sp::Vector2d getViewTargetPosition() { return view_position; }
 private:
     enum class Shape
     {
@@ -35,4 +38,8 @@ private:
     bool callsigns = false;
     bool heading_indicators = false;
     bool tube_indicators = false;
+
+    sp::P<Craft> owner_craft;
+
+    sp::Vector2d view_position;
 };

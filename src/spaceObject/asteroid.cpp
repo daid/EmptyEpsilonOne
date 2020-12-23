@@ -17,5 +17,6 @@ Asteroid::Asteroid(sp::P<sp::Node> parent)
     radar_blip.texture = sp::texture_manager.get("gui/radar/blip.png");
 
     sp::collision::Circle2D shape(120);
+    shape.type = sp::collision::Shape::Type::Sensor;
     setCollisionShape(shape);
 }

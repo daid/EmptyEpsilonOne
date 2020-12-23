@@ -7,7 +7,7 @@
     //TODO: "gui/BackgroundGradient" image
     //TODO: alert underlay
     
-    {
+    [HELMS_RADAR] {
         type: radar
         alignment: center
         size: 800, 800
@@ -46,22 +46,21 @@
         [IMPULSE] {
             type: slider
             size: 50, 300
+            range: -1, 1
+            tag: impulse.visible
         }
         {
-            type: label
+            @ref: gui/components.gui#VERTICAL_KEY_VALUE name=Impulse tag=impulse.current
             size: 40, 300
-            caption: Impulse: 0%
-            vertical: true
+            tag: impulse.visible
         }
         [WARP] {
             type: slider
             size: 50, 300
         }
         {
-            type: label
+            @ref: gui/components.gui#VERTICAL_KEY_VALUE name=Warp tag=warp.current
             size: 40, 300
-            caption: Warp: 0.0
-            vertical: true
         }
         {
             layout: vertical
@@ -77,10 +76,8 @@
                     size: 50, 250
                 }
                 {
-                    type: label
+                    @ref: gui/components.gui#VERTICAL_KEY_VALUE name=Jump
                     size: 40, 250
-                    caption: Jump: 10.0U
-                    vertical: true
                 }
             }
             [JUMP] {

@@ -11,12 +11,7 @@ public:
 
     void onUpdate(float delta) override;
 private:
-    template<typename T> void create(const sp::string& widget_name)
-    {
-        auto widget = gui->getWidgetWithID(widget_name);
-        if (widget)
-            new T(widget, player);
-    }
+    void link(sp::P<sp::gui::Widget> widget);
 
     sp::P<sp::gui::Widget> gui;
     sp::P<PlayerCraft> player;

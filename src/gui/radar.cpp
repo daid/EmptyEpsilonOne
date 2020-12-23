@@ -101,4 +101,15 @@ void RadarWidget::onUpdate(float delta)
     sp::gui::Widget::onUpdate(delta);
     if (render_data.type == sp::RenderData::Type::Normal)
         render_data.type = sp::RenderData::Type::Custom1;
+    
+    if (owner_craft)
+    {
+        view_position = owner_craft->getPosition2D();
+        switch(range_type)
+        {
+        case RangeType::Fixed: break;
+        case RangeType::Short: range = owner_craft->sensors.short_range; break;
+        case RangeType::Long: range = owner_craft->sensors.long_range; break;
+        }
+    }
 }

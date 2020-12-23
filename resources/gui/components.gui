@@ -20,3 +20,35 @@
         stretch: true
     }
 }
+
+[@VERTICAL_KEY_VALUE] {
+    type: panel
+    style: keyvalue.background
+    size: 40, 240
+    layout: vertical
+    
+    {
+        type: label
+
+        size: 1, 400
+        margin: 0, 0, 0, 10
+        stretch: true
+
+        style: keyvalue.value
+        text.alignment: bottom
+        caption: -
+        vertical: true
+        tag: {tag}
+    }
+    {
+        type: label
+
+        size: 1, 600
+        stretch: true
+
+        style: keyvalue.key
+        text.alignment: top
+        caption: {name}
+        vertical: true
+    }
+}

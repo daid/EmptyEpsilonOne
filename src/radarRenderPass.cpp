@@ -14,7 +14,7 @@ void RadarRenderPass::addNodeToRenderQueue(sp::RenderQueue& queue, sp::P<sp::Nod
     if (node->render_data.type == sp::RenderData::Type::Custom1)
     {
         sp::P<RadarWidget> radar_widget = node;
-        
+        auto view_position = radar_widget->getViewTargetPosition();
         
         //We need to set a new camera, which centers the radar view target position on
         //the center of the radar and has the correct scale.
@@ -41,7 +41,7 @@ void RadarRenderPass::addNodeToRenderQueue(sp::RenderQueue& queue, sp::P<sp::Nod
             glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
         });
 
-        queue.setCamera(node->getScene()->getCamera()->getProjectionMatrix(), sp::Matrix4x4f::scale(1.0/scale,1.0/scale,1) * sp::Matrix4x4f::fromQuaternion(sp::Quaternionf::fromAngle(0)));
+        queue.setCamera(node->getScene()->getCamera()->getProjectionMatrix(), sp::Matrix4x4f::scale(1.0/scale,1.0/scale,1) * sp::Matrix4x4f::translate(-view_position.x, -view_position.y, 0) * sp::Matrix4x4f::fromQuaternion(sp::Quaternionf::fromAngle(0)));
         //TODO: Render radar background
 
         auto scene = sp::Scene::get("SCENE_1");

@@ -9,10 +9,12 @@ public:
 
     void commandSetManeuverTarget(double target);
     void commandSetImpulseRequest(double amount);
+    void commandSetWarpRequest(int level);
 
     static sp::PList<PlayerCraft> all;
 
 private:
     void serverSetManeuverTarget(double target);
     void serverSetImpulseRequest(double amount);
+    void serverSetWarpRequest(int level);
 };
