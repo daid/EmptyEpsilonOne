@@ -11,8 +11,9 @@ Craft::Craft(sp::P<sp::Node> parent)
 : SpaceObject(parent)
 {
     radar_blip.type = sp::RenderData::Type::Normal;
-    radar_blip.mesh = sp::MeshData::createQuad(sp::Vector2f(30, 30));
+    radar_blip.mesh = sp::MeshData::createQuad(sp::Vector2f(10, 10));
     radar_blip.texture = sp::texture_manager.get("gui/radar/arrow.png");
+    radar_blip.scale.x = 20.0;
 
     multiplayer.replicate(maneuvering.request, 0.1);
     multiplayer.replicate(maneuvering.target, 0.1);
@@ -61,7 +62,7 @@ void Craft::onUpdate(float delta)
 
     double impulse_speed = impulse.current * impulse.config.top_speed;
     double warp_speed = warpdrive.current * warpdrive.config.speed_per_level;
-    setLinearVelocity(sp::Vector2d(0.0, 1.0).rotate(getRotation2D()) * (impulse_speed + warp_speed));
+    setLinearVelocity(sp::Vector2d(1.0, 0.0).rotate(getRotation2D()) * (impulse_speed + warp_speed));
 
     if (std::abs(maneuvering.request) >= 0.005)
     {
@@ -71,6 +72,7 @@ void Craft::onUpdate(float delta)
         double rotation = getRotation2D();
         double diff = sp::angleDifference(rotation, maneuvering.target);
         diff = std::clamp(diff, -1.0, 1.0);
+        setAngularVelocity(diff * maneuvering.config.speed);
     }
 }
 

@@ -15,6 +15,8 @@ void RadarRenderPass::addNodeToRenderQueue(sp::RenderQueue& queue, sp::P<sp::Nod
     {
         sp::P<RadarWidget> radar_widget = node;
         auto view_position = radar_widget->getViewTargetPosition();
+        auto view_rotation = radar_widget->getViewTargetRotation();
+        float scale = radar_widget->getRange() / (std::min(radar_widget->getRenderSize().x, radar_widget->getRenderSize().y) * 0.5);
         
         //We need to set a new camera, which centers the radar view target position on
         //the center of the radar and has the correct scale.
@@ -31,17 +33,14 @@ void RadarRenderPass::addNodeToRenderQueue(sp::RenderQueue& queue, sp::P<sp::Nod
         data.type = sp::RenderData::Type::Normal;
         data.color = sp::Color(0.1, 0.1, 0.1);
         queue.add(sp::Matrix4x4f::identity(), data);
-
-        float scale = radar_widget->getRange() / (std::min(radar_widget->getRenderSize().x, radar_widget->getRenderSize().y) * 0.5);
-        queue.setCamera(node->getScene()->getCamera()->getProjectionMatrix(), sp::Matrix4x4f::scale(1.0/scale, 1.0/scale, 1));
         
         //Render the radar items
-        queue.add([](){
+        queue.add([view_rotation](){
             glStencilFunc(GL_EQUAL, 1, 0xff);
             glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
         });
 
-        queue.setCamera(node->getScene()->getCamera()->getProjectionMatrix(), sp::Matrix4x4f::scale(1.0/scale,1.0/scale,1) * sp::Matrix4x4f::translate(-view_position.x, -view_position.y, 0) * sp::Matrix4x4f::fromQuaternion(sp::Quaternionf::fromAngle(0)));
+        queue.setCamera(node->getScene()->getCamera()->getProjectionMatrix(), sp::Matrix4x4f::scale(1.0/scale,1.0/scale,1) * sp::Matrix4x4f::fromQuaternion(sp::Quaternionf::fromAngle(-view_rotation)) * sp::Matrix4x4f::translate(-view_position.x, -view_position.y, 0));
         //TODO: Render radar background
 
         auto scene = sp::Scene::get("SCENE_1");

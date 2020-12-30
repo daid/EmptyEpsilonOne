@@ -9,8 +9,8 @@
 --              Faster version of the scenario.
 
 function init()
-	for x=-1000,1000,100 do
-		for y=-1000,1000,100 do
+	for x=-5000,5000,500 do
+		for y=-5000,5000,500 do
 			a = Asteroid({x, y})
 		end
 	end

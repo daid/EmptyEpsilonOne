@@ -74,12 +74,15 @@ bool RadarWidget::onPointerDown(sp::io::Pointer::Button button, sp::Vector2d pos
         if ((position - size * 0.5).length() > radius)
             return false;
     }
-    //LOG(Debug, widgetPositionToWorld(position));
+    onPointerDrag(position, id);
     return true;
 }
 
 void RadarWidget::onPointerDrag(sp::Vector2d position, int id)
 {
+    position = widgetPositionToWorld(position);
+    if (owner_craft)
+        owner_craft->maneuvering.target = (position - owner_craft->getPosition2D()).angle();
 }
 
 void RadarWidget::onPointerUp(sp::Vector2d position, int id)
@@ -106,6 +109,7 @@ void RadarWidget::onUpdate(float delta)
     if (owner_craft)
     {
         view_position = owner_craft->getPosition2D();
+        view_rotation = owner_craft->getRotation2D() - 90;
         switch(range_type)
         {
         case RangeType::Fixed: break;
@@ -118,5 +122,6 @@ void RadarWidget::onUpdate(float delta)
 sp::Vector2d RadarWidget::widgetPositionToWorld(sp::Vector2d position)
 {
     position -= getRenderSize() * 0.5;
+    position = position.rotate(view_rotation);
     return view_position + position / (std::min(getRenderSize().x, getRenderSize().y) * 0.5) * range;
 }

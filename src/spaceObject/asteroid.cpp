@@ -13,7 +13,7 @@ Asteroid::Asteroid(sp::P<sp::Node> parent)
 {
     radar_blip.type = sp::RenderData::Type::Normal;
     radar_blip.color = sp::Color(1, 0.8, 0.4);
-    radar_blip.mesh = sp::MeshData::createQuad(sp::Vector2f(10, 10));
+    radar_blip.mesh = sp::MeshData::createQuad(sp::Vector2f(240, 240));
     radar_blip.texture = sp::texture_manager.get("gui/radar/blip.png");
 
     sp::collision::Circle2D shape(120);

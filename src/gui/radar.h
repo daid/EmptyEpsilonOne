@@ -20,6 +20,7 @@ public:
 
     void setOwnerCraft(sp::P<Craft> owner) { owner_craft = owner; }
     sp::Vector2d getViewTargetPosition() { return view_position; }
+    double getViewTargetRotation() { return view_rotation; }
     double getRange() { return range; }
 private:
     sp::Vector2d widgetPositionToWorld(sp::Vector2d position);
@@ -45,4 +46,5 @@ private:
     sp::P<Craft> owner_craft;
 
     sp::Vector2d view_position;
+    double view_rotation{90.0};
 };
