@@ -111,7 +111,13 @@ void ScreenBase::link(sp::P<sp::gui::Widget> widget)
     
     sp::P<RadarWidget> radar = widget;
     if (radar)
+    {
         radar->setOwnerCraft(player);
+        radar->setOnDrag([this](sp::Vector2d position) {
+            if (player)
+                player->commandSetManeuverTarget((position - player->getPosition2D()).angle());
+        });
+    }
 
     if (widget->tag == "")
         return;
