@@ -35,6 +35,17 @@ public:
             double discharge_time = 2.0; // time it takes to discharge 1 warp level down.
         } config;
     } warpdrive;
+    struct {
+        double charge = 0.0;
+        double jump_delay = 0.0;
+        double distance = 0.0;
+        struct {
+            double min_distance = 5.0;
+            double max_distance = 25.0;
+            double charge_time = 90.0;
+            double jump_delay = 10.0;
+        } config;
+    } jumpdrive;
     struct
     {
         double short_range = 5000;
@@ -43,6 +54,10 @@ public:
 
     const sp::string& getCallsign() { return callsign; }
     void setCallsign(const sp::string& callsign);
+
+    bool requestJump(double distance);
 private:
+    void executeJump(double distance);
+
     sp::string callsign;
 };

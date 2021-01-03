@@ -1,4 +1,5 @@
 #include "craft.h"
+#include "../multiplayer.h"
 
 #include <sp2/graphics/meshdata.h>
 #include <sp2/graphics/textureManager.h>
@@ -31,6 +32,13 @@ Craft::Craft(sp::P<sp::Node> parent)
     multiplayer.replicate(warpdrive.config.charge_time);
     multiplayer.replicate(warpdrive.config.discharge_time);
 
+    multiplayer.replicate(jumpdrive.charge, 0.1);
+    multiplayer.replicate(jumpdrive.jump_delay, 0.5);
+    multiplayer.replicate(jumpdrive.config.min_distance);
+    multiplayer.replicate(jumpdrive.config.max_distance);
+    multiplayer.replicate(jumpdrive.config.charge_time);
+    multiplayer.replicate(jumpdrive.config.jump_delay);
+
     multiplayer.replicate(sensors.short_range);
     multiplayer.replicate(sensors.long_range);
 
@@ -41,6 +49,19 @@ Craft::Craft(sp::P<sp::Node> parent)
 
 void Craft::onUpdate(float delta)
 {
+    if (jumpdrive.jump_delay > 0.0)
+    {
+        jumpdrive.jump_delay -= delta;
+        if (jumpdrive.jump_delay <= 0.0)
+        {
+            if (isServer())
+                executeJump(jumpdrive.distance);
+            jumpdrive.jump_delay = 0.0;
+        }
+        warpdrive.request = 0.0;
+        impulse.request = 0.0;
+    }
+
     if (warpdrive.request > 0 || warpdrive.current > 0.0)
     {
         if (impulse.current > 0.0)
@@ -79,4 +100,27 @@ void Craft::onUpdate(float delta)
 void Craft::setCallsign(const sp::string& callsign)
 {
     this->callsign = callsign;
+}
+
+bool Craft::requestJump(double distance)
+{
+    if (jumpdrive.charge < jumpdrive.config.max_distance) // You can only jump when the drive is fully charged
+        return false;
+    if (jumpdrive.jump_delay >= 0)
+        return false;
+    distance = std::min(distance, jumpdrive.charge);
+    jumpdrive.distance = distance;
+    jumpdrive.jump_delay = jumpdrive.config.jump_delay;
+    jumpdrive.charge -= distance;
+    return true;
+}
+
+void Craft::executeJump(double distance)
+{
+    //TODO: Damage correction
+    //TODO: Warp jammers
+    //TODO: System heat
+    auto target_position = getPosition2D() + sp::Vector2d(distance, 0).rotate(getRotation2D());
+
+    setPosition(target_position);
 }

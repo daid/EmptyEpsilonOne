@@ -53,6 +53,7 @@ void RadarRenderPass::addNodeToRenderQueue(sp::RenderQueue& queue, sp::P<sp::Nod
         queue.add([](){
             glDisable(GL_STENCIL_TEST);
         });
+        //TODO: Render radar overlay for circle radar
         queue.setCamera(node->getScene()->getCamera());
     }else{
         sp::BasicNodeRenderPass::addNodeToRenderQueue(queue, node);
