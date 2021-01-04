@@ -36,12 +36,13 @@ public:
         } config;
     } warpdrive;
     struct {
-        double charge = 0.0;
+        double charge = 25000.0;
         double jump_delay = 0.0;
-        double distance = 0.0;
+        double jump_distance = 0.0;
+        double request_distance = 0.0;
         struct {
-            double min_distance = 5.0;
-            double max_distance = 25.0;
+            double min_distance = 5000.0;
+            double max_distance = 25000.0;
             double charge_time = 90.0;
             double jump_delay = 10.0;
         } config;

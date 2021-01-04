@@ -3,6 +3,7 @@
 
 #include <sp2/graphics/gui/loader.h>
 #include <sp2/graphics/gui/widget/label.h>
+#include <sp2/graphics/gui/widget/progressbar.h>
 
 
 class ImpulseControl : public sp::Node
@@ -57,6 +58,50 @@ private:
     sp::P<PlayerCraft> player;
 };
 
+class JumpDistanceControl : public sp::Node
+{
+public:
+    JumpDistanceControl(sp::P<sp::gui::Widget> parent, sp::P<PlayerCraft> player)
+    : sp::Node(parent), player(player)
+    {
+        parent->setEventCallback([player, parent](sp::Variant v)
+        {
+            player->jumpdrive.request_distance = v.getDouble();
+        });
+    }
+
+    void onUpdate(float delta) override
+    {
+        sp::P<sp::gui::Widget> w = getParent();
+        w->setAttribute("value", sp::string(player->jumpdrive.request_distance));
+        w->setAttribute("min", sp::string(player->jumpdrive.config.min_distance));
+        w->setAttribute("max", sp::string(player->jumpdrive.config.max_distance));
+    }
+private:
+    sp::P<PlayerCraft> player;
+};
+
+class JumpExecute : public sp::Node
+{
+public:
+    JumpExecute(sp::P<sp::gui::Widget> parent, sp::P<PlayerCraft> player)
+    : sp::Node(parent), player(player)
+    {
+        parent->setEventCallback([player, parent](sp::Variant v)
+        {
+            player->commandJumpRequest(player->jumpdrive.request_distance);
+        });
+    }
+
+    void onUpdate(float delta) override
+    {
+        sp::P<sp::gui::Widget> w = getParent();
+        w->setEnable(player->jumpdrive.jump_delay <= 0.0 && player->jumpdrive.charge >= player->jumpdrive.config.max_distance);
+    }
+private:
+    sp::P<PlayerCraft> player;
+};
+
 class LabelValueDisplay : public sp::Node
 {
 public:
@@ -76,6 +121,28 @@ public:
 private:
     sp::P<PlayerCraft> player;
     std::function<sp::string(sp::P<PlayerCraft>)> format_func;
+};
+
+class JumpDriveChargeProgressbar : public sp::Node
+{
+public:
+    JumpDriveChargeProgressbar(sp::P<sp::gui::Widget> parent, sp::P<PlayerCraft> player)
+    : sp::Node(parent), player(player)
+    {
+    }
+
+    void onUpdate(float delta) override
+    {
+        if (player)
+        {
+            sp::P<sp::gui::Progressbar> p = getParent();
+            p->setValue(player->jumpdrive.charge);
+            p->setRange(0, player->jumpdrive.config.max_distance);
+            p->setVisible(player->jumpdrive.charge < player->jumpdrive.config.max_distance);
+        }
+    }
+private:
+    sp::P<PlayerCraft> player;
 };
 
 ScreenBase::ScreenBase(sp::P<sp::gui::Widget> parent, sp::P<PlayerCraft> player, const sp::string& screen_resource_filename)
@@ -108,6 +175,10 @@ void ScreenBase::link(sp::P<sp::gui::Widget> widget)
         new ImpulseControl(widget, player);
     else if (widget->getID() == "WARP")
         new WarpControl(widget, player);
+    else if (widget->getID() == "JUMP_DISTANCE_INPUT")
+        new JumpDistanceControl(widget, player);
+    else if (widget->getID() == "EXECUTE_JUMP")
+        new JumpExecute(widget, player);
     
     sp::P<RadarWidget> radar = widget;
     if (radar)
@@ -131,6 +202,8 @@ void ScreenBase::link(sp::P<sp::gui::Widget> widget)
         new LabelValueDisplay(widget, player, [](sp::P<PlayerCraft> player) { return sp::string(std::fmod(player->getRotation2D() + 360.0, 360.0), 0); });
     else if (widget->tag == "speed.current" && sp::P<sp::gui::Label>(widget))
         new LabelValueDisplay(widget, player, [](sp::P<PlayerCraft> player) { return sp::string(player->getLinearVelocity2D().length() / 1000 * 60, 2)  + " U/Min"; });
+    else if (widget->tag == "jumpdrive.charge" && sp::P<sp::gui::Progressbar>(widget))
+        new JumpDriveChargeProgressbar(widget, player);
     else
         LOG(Debug, "Unknown screen widget tag:", widget->tag);
 }

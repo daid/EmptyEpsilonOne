@@ -66,24 +66,25 @@
             layout: vertical
             {
                 layout: horizontal
-                [JUMP_DISTANCE] {
+                [JUMP_DISTANCE_INPUT] {
                     type: slider
                     size: 50, 250
                 }
-                [JUMP_CHARGE] {
-                    type: progressbar
-                    progress.alignment: bottom
+                {
+                    @ref: gui/components.gui#VERTICAL_KEY_VALUE name=Jump tag=jump.distance.input
                     size: 50, 250
                 }
                 {
-                    @ref: gui/components.gui#VERTICAL_KEY_VALUE name=Jump
-                    size: 40, 250
+                    type: progressbar
+                    progress.alignment: bottom
+                    size: 50, 250
+                    tag: jumpdrive.charge
                 }
             }
-            [JUMP] {
+            [EXECUTE_JUMP] {
                 type: button
                 height: 50
-                fill_width: true
+                width: 100
                 caption: Jump
             }
         }

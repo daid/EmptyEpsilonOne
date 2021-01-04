@@ -55,11 +55,15 @@ void Craft::onUpdate(float delta)
         if (jumpdrive.jump_delay <= 0.0)
         {
             if (isServer())
-                executeJump(jumpdrive.distance);
+                executeJump(jumpdrive.jump_distance);
             jumpdrive.jump_delay = 0.0;
         }
         warpdrive.request = 0.0;
         impulse.request = 0.0;
+    }
+    else
+    {
+        jumpdrive.charge = std::min(jumpdrive.charge + jumpdrive.config.max_distance * delta / jumpdrive.config.charge_time, jumpdrive.config.max_distance);
     }
 
     if (warpdrive.request > 0 || warpdrive.current > 0.0)
@@ -106,10 +110,10 @@ bool Craft::requestJump(double distance)
 {
     if (jumpdrive.charge < jumpdrive.config.max_distance) // You can only jump when the drive is fully charged
         return false;
-    if (jumpdrive.jump_delay >= 0)
+    if (jumpdrive.jump_delay > 0)
         return false;
     distance = std::min(distance, jumpdrive.charge);
-    jumpdrive.distance = distance;
+    jumpdrive.jump_distance = distance;
     jumpdrive.jump_delay = jumpdrive.config.jump_delay;
     jumpdrive.charge -= distance;
     return true;
