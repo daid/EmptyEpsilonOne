@@ -28,13 +28,13 @@
         layout: vertical
         position: 20, 100
         {
-            @ref: gui/components.gui#KEY_VALUE name=Energy
+            @ref: gui/components.gui#KEY_VALUE name=Energy tag=energy.current
         }
         {
-            @ref: gui/components.gui#KEY_VALUE name=Heading
+            @ref: gui/components.gui#KEY_VALUE name=Heading tag=heading.current
         }
         {
-            @ref: gui/components.gui#KEY_VALUE name=Speed
+            @ref: gui/components.gui#KEY_VALUE name=Speed tag=speed.current
         }
     }    
     

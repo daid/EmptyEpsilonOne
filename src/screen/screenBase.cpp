@@ -125,6 +125,12 @@ void ScreenBase::link(sp::P<sp::gui::Widget> widget)
         new LabelValueDisplay(widget, player, [](sp::P<PlayerCraft> player) { return sp::string(int(player->impulse.current * 100)) + "%"; });
     else if (widget->tag == "warp.current" && sp::P<sp::gui::Label>(widget))
         new LabelValueDisplay(widget, player, [](sp::P<PlayerCraft> player) { return sp::string(player->warpdrive.current, 1); });
+    else if (widget->tag == "energy.current" && sp::P<sp::gui::Label>(widget))
+        new LabelValueDisplay(widget, player, [](sp::P<PlayerCraft> player) { return "TODO"; });
+    else if (widget->tag == "heading.current" && sp::P<sp::gui::Label>(widget))
+        new LabelValueDisplay(widget, player, [](sp::P<PlayerCraft> player) { return sp::string(std::fmod(player->getRotation2D() + 360.0, 360.0), 0); });
+    else if (widget->tag == "speed.current" && sp::P<sp::gui::Label>(widget))
+        new LabelValueDisplay(widget, player, [](sp::P<PlayerCraft> player) { return sp::string(player->getLinearVelocity2D().length() / 1000 * 60, 2)  + " U/Min"; });
     else
         LOG(Debug, "Unknown screen widget tag:", widget->tag);
 }
