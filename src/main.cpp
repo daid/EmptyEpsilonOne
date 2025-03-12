@@ -18,6 +18,8 @@
 #include "gameGlobalInfo.h"
 #include "spaceScene.h"
 #include "radarRenderPass.h"
+#include "gui/radar.h"
+
 
 int empty_epsilon_version = 1;
 
@@ -26,6 +28,7 @@ sp::P<sp::Window> window;
 int main(int argc, char **argv)
 {
     sp::P<sp::Engine> engine = new sp::Engine();
+    SP_REGISTER_WIDGET("radar", RadarWidget);
 
     //Create resource providers, so we can load things.
     sp::io::ResourceProvider::createDefault();

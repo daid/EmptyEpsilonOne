@@ -6,8 +6,6 @@
 #include "radar.h"
 
 
-SP_REGISTER_WIDGET("radar", RadarWidget);
-
 RadarWidget::RadarWidget(sp::P<sp::gui::Widget> parent)
     : sp::gui::Widget(parent)
 {
